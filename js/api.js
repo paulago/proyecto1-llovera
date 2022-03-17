@@ -1,8 +1,37 @@
 "use strict";
+import { getWeatherIcon } from "./helper";
 
 const locationButton = document.querySelector("button");
-const rain = document.querySelector(".rain");
-const noRain = document.querySelector(".noRain");
+const rain = document.querySelector("#rain");
+const noRain = document.querySelector("#noRain");
+const error = document.querySelector("#error");
+const actually = document.querySelector("#actually");
+const hourly = document.querySelector("#hourly");
+
+function clean() {
+  rain.classList.add("hidden");
+  noRain.classList.add("hidden");
+  error.classList.add("hidden");
+}
+clean();
+
+function showActuallyData(current) {
+  // Date
+  const date = new Date();
+  const now = date.getDate() + "-" + (date.getMonth() + 1);
+  const h2 = document.querySelector("#actually h2");
+  h2.textContent = now;
+
+  //Degrees
+  const p = document.querySelector("#actually p");
+  p.textContent = `${Math.round(parseInt(current.temp) - 273.15)}ºC`;
+  //icon
+  const img = document.querySelector("#actually img");
+  img.src = getWeatherIcon(current.weather[0].main);
+}
+function removeHidden(square) {
+  square.classList.remove("hidden");
+}
 
 locationButton.addEventListener("click", async () => {
   try {
@@ -10,17 +39,18 @@ locationButton.addEventListener("click", async () => {
       navigator.geolocation.getCurrentPosition(async (position) => {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
-
         const response = await fetch(
           `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=16ce9a4a05f095cfc0c771f280038c39`
         );
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
-
-          const currentTemperature = current.main.temp;
-          const currentWeather = Math.round(current.weather[0].main);
+          const finalData = {
+            current: data.current,
+            hourly: data.hourly.slice(0, 6),
+          };
+          showActuallyData(finalData.current);
+          console.log(finalData);
         } else {
           console.log("No se ha podido acceder a tu ubicación");
         }
@@ -30,11 +60,3 @@ locationButton.addEventListener("click", async () => {
     console.log(error.message);
   }
 });
-
-/* if (hourly.weather.main !== "Rain") {
-  console.log("No va a llover.");
-} else {
-  console.log("Sí va a llover.");
-} */
-
-//const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=16ce9a4a05f095cfc0c771f280038c39`;

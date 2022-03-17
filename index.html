@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>¿Lloverá en tu ciudad?</title>
     <link rel="stylesheet" href="css/style.css" />
-    <script src="/js/api.js" defer></script>
+    <script type="module" src="/js/api.js" defer></script>
+    <script type="module" src="/js/helper.js" defer></script>
   </head>
   <body>
     <header>
@@ -17,10 +18,56 @@
       <section>
         <button id="ubication">Haz clic aquí</button>
       </section>
-      <section id="rain">
+      <section id="actually">
+        <h2></h2>
+        <img id="currentImage" src="" alt="Icono tiempo" />
         <p></p>
       </section>
+      <section id="hourly">
+        <div id="0">
+          <h3>22h</h3>
+          <p>img</p>
+          <p>10c</p>
+        </div>
+        <div id="1">
+          <h3>23h</h3>
+          <p>img</p>
+          <p>10c</p>
+        </div>
+        <div id="2">
+          <h3>24h</h3>
+          <p>img</p>
+          <p>10c</p>
+        </div>
+        <div id="3">
+          <h3>1h</h3>
+          <p>img</p>
+          <p>10c</p>
+        </div>
+        <div id="4">
+          <h3>2h</h3>
+          <p>img</p>
+          <p>10c</p>
+        </div>
+        <div id="5">
+          <h3>3h</h3>
+          <p>img</p>
+          <p>10c</p>
+        </div>
+        <div id="6">
+          <h3>4h</h3>
+          <p>img</p>
+          <p>10c</p>
+        </div>
+      </section>
+
+      <section id="rain">
+        <p>dddd</p>
+      </section>
       <section id="noRain">
+        <p></p>
+      </section>
+      <section id="error">
         <p></p>
       </section>
     </main>
