@@ -1,5 +1,5 @@
 "use strict";
-import { getWeatherIcon } from "./helper";
+import { getWeatherIcon } from "/js/helper.js";
 
 const locationButton = document.querySelector("button");
 const rain = document.querySelector("#rain");
@@ -29,6 +29,19 @@ function showActuallyData(current) {
   const img = document.querySelector("#actually img");
   img.src = getWeatherIcon(current.weather[0].main);
 }
+
+function showHourlyData(hourly) {
+  //Date
+  const date = new Date();
+  const hour = date.getHours();
+
+  const hourCero = document.querySelector("#cero h3");
+  hourCero.textContent = hour + 1;
+
+  console.log(hour);
+  console.log(hourCero);
+}
+
 function removeHidden(square) {
   square.classList.remove("hidden");
 }
@@ -47,10 +60,11 @@ locationButton.addEventListener("click", async () => {
           const data = await response.json();
           const finalData = {
             current: data.current,
-            hourly: data.hourly.slice(0, 6),
+            hourly: data.hourly.slice(0, 7),
           };
           showActuallyData(finalData.current);
           console.log(finalData);
+          showHourlyData();
         } else {
           console.log("No se ha podido acceder a tu ubicación");
         }
