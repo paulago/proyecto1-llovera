@@ -6,40 +6,58 @@ const rain = document.querySelector("#rain");
 const noRain = document.querySelector("#noRain");
 const error = document.querySelector("#error");
 const actually = document.querySelector("#actually");
-const hourly = document.querySelector("#hourly");
+const hourlyContainer = document.querySelector("#hourly");
 
 function clean() {
   rain.classList.add("hidden");
   noRain.classList.add("hidden");
   error.classList.add("hidden");
+  actually.classList.add("hidden");
 }
 clean();
 
 function showActuallyData(current) {
-  // Date
   const date = new Date();
-  const now = date.getDate() + "-" + (date.getMonth() + 1);
+  const now = date.getDate() + " - " + (date.getMonth() + 1);
+  const hourData = date.getHours();
   const h2 = document.querySelector("#actually h2");
   h2.textContent = now;
+  const hour = document.querySelector("#actually .actuallyHour");
+  hour.textContent = `${hourData} H`;
 
-  //Degrees
-  const p = document.querySelector("#actually p");
-  p.textContent = `${Math.round(parseInt(current.temp) - 273.15)}ºC`;
-  //icon
+  const degree = document.querySelector("#actually .degree");
+  degree.textContent = `${Math.round(parseInt(current.temp) - 273.15)} ºC`;
+
   const img = document.querySelector("#actually img");
   img.src = getWeatherIcon(current.weather[0].main);
 }
 
 function showHourlyData(hourly) {
-  //Date
   const date = new Date();
   const hour = date.getHours();
 
-  const hourCero = document.querySelector("#cero h3");
-  hourCero.textContent = hour + 1;
+  hourly.forEach((item, index) => {
+    const div = document.createElement("div");
+    const nextHour = document.createElement("h3");
+    const degree = document.createElement("p");
+    const img = document.createElement("img");
 
-  console.log(hour);
-  console.log(hourCero);
+    const hourData = hour + index + 1;
+    if (hourData <= 24) {
+      nextHour.textContent = `${hourData} H`;
+    } else if (hourData > 24) {
+      nextHour.textContent = `${hourData - 24} H`;
+    }
+
+    img.src = getWeatherIcon(hourly[index].weather[0].main);
+
+    degree.textContent = `${Math.round(parseInt(item.temp) - 273.15)} ºC`;
+
+    div.appendChild(nextHour);
+    div.appendChild(img);
+    div.appendChild(degree);
+    hourlyContainer.appendChild(div);
+  });
 }
 
 function removeHidden(square) {
@@ -64,7 +82,15 @@ locationButton.addEventListener("click", async () => {
           };
           showActuallyData(finalData.current);
           console.log(finalData);
-          showHourlyData();
+          showHourlyData(finalData.hourly);
+          if (
+            finalData.current.weather.main === "Rain" ||
+            finalData.hourly.some((item) => item.weather[0].main === "Rain")
+          ) {
+            removeHidden(rain);
+          } else {
+            removeHidden(noRain);
+          }
         } else {
           console.log("No se ha podido acceder a tu ubicación");
         }
@@ -72,5 +98,6 @@ locationButton.addEventListener("click", async () => {
     }
   } catch (error) {
     console.log(error.message);
+    removeHidden(error);
   }
 });

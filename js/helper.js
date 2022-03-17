@@ -8,5 +8,3 @@ export const getWeatherIcon = (clima) => {
   if (clima === "Clouds") return "iconos/animated/cloudy.svg";
 };
 
-// export const a => import {a} from... (el mismo nombre)
-// export default const a => import helper from (el a puedo llamarse como queráis)
