@@ -25,7 +25,7 @@ main {
   display: none;
 }
 
-#hourly {
+#nextHours {
   display: flex;
   justify-content: center;
   gap: 1rem;

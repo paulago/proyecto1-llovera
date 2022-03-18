@@ -1,9 +1,9 @@
 "use strict";
 
+import { getMonthDay } from "/js/helper.js";
 import { getWeatherIcon } from "/js/helper.js";
 
 const locationButton = document.querySelector("button");
-const resetButton = document.querySelector("#reset");
 const rain = document.querySelector("#rain");
 const noRain = document.querySelector("#noRain");
 const error = document.querySelector("#error");
@@ -16,14 +16,18 @@ function clean() {
   error.classList.add("hidden");
   actually.classList.add("hidden");
   nextHours.classList.add("hidden");
+  document.querySelectorAll(".nextHoursContainer").forEach((el) => {
+    console.log(el);
+    el.remove();
+  });
 }
 clean();
 
 function showActuallyData(current) {
   const date = new Date();
-  const now = date.getDate() + " - " + (date.getMonth() + 1);
+  const month = getMonthDay(date.getMonth() + 1);
+  const now = date.getDate() + " - " + month;
   const hourData = date.getHours();
-
   const h2 = document.querySelector("#actually h2");
   h2.textContent = now;
 
@@ -42,6 +46,8 @@ function showHourlyData(hourly) {
   const hour = date.getHours();
 
   hourly.forEach((item, index) => {
+    const container = document.createElement("div");
+    container.classList.add("nextHoursContainer");
     const section = document.createElement("section");
     const next = document.createElement("h3");
     const degree = document.createElement("p");
@@ -61,7 +67,8 @@ function showHourlyData(hourly) {
     section.appendChild(next);
     section.appendChild(img);
     section.appendChild(degree);
-    nextHours.appendChild(section);
+    container.appendChild(section);
+    nextHours.appendChild(container);
   });
 }
 
@@ -70,8 +77,8 @@ function removeHidden(square) {
 }
 
 locationButton.addEventListener("click", async () => {
+  clean();
   removeHidden(actually, nextHours);
-  locationButton.classList.add("hidden");
 
   try {
     if (navigator.geolocation) {
@@ -110,11 +117,4 @@ locationButton.addEventListener("click", async () => {
     console.log(error.message);
     removeHidden(error);
   }
-});
-
-resetButton.addEventListener("click", () => {
-  nextHours.value = "";
-  actually.value = "";
-  removeHidden(locationButton);
-  clean();
 });

@@ -6,3 +6,9 @@ export const getWeatherIcon = (clima) => {
   if (clima === "Snow") return "iconos/animated/snowy-6.svg";
   if (clima === "Clouds") return "iconos/animated/cloudy.svg";
 };
+
+export const getMonthDay = (month) => {
+  if (month === 1) return "Enero";
+  if (month === 2) return "Febrero";
+  if (month === 3) return "Marzo";
+};
