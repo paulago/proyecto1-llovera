@@ -15,6 +15,15 @@ body {
   flex-direction: column;
 }
 
+h1 {
+  margin-top: 1rem;
+  font-size: 4rem;
+}
+
+header h2 {
+  margin: 1rem 1rem;
+}
+
 main {
   display: flex;
   flex-grow: 1;
@@ -27,8 +36,15 @@ main {
 
 #nextHours {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+}
+
+#nextHours section {
+  background-color: rgb(191, 226, 244);
+  border-radius: 15px;
+  padding: 1rem;
 }
 
 button {
@@ -50,4 +66,23 @@ footer {
 a {
   color: white;
   text-decoration: none;
+}
+
+#rain,
+#noRain {
+  background-color: rgb(85, 116, 179);
+  color: white;
+  margin: 1rem;
+  border-radius: 15px;
+  padding: 1rem;
+  max-width: 80rem;
+}
+
+#error {
+  background-color: rgb(242, 120, 120);
+  color: white;
+  margin: 1rem;
+  border-radius: 15px;
+  padding: 1rem;
+  max-width: 80rem;
 }
