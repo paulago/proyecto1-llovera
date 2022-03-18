@@ -7,7 +7,6 @@
     <title>¿Lloverá en tu ciudad?</title>
     <link rel="stylesheet" href="css/style.css" />
     <script type="module" src="/js/api.js" defer></script>
-    <script type="module" src="/js/helper.js" defer></script>
   </head>
   <body>
     <header>
@@ -18,23 +17,29 @@
       <section>
         <button id="ubication">Haz clic aquí</button>
       </section>
-      <section id="actually">
-        <h2></h2>
-        <p class="actuallyHour"></p>
-        <img id="currentImage" src="" alt="Icono tiempo" />
-        <p class="degree"></p>
-      </section>
-      <section id="hourly"></section>
 
-      <section id="rain">
-        <p>Va a llover en tu ciudad en las próximas horas</p>
-      </section>
-      <section id="noRain">
-        <p>No va a llover en tu ciudad en las póximas horas</p>
-      </section>
-      <section id="error">
-        <p>Error en la recepción de datos</p>
-      </section>
+      <div class="containerHidden">
+        <section id="actually">
+          <h2></h2>
+          <p class="actuallyHour"></p>
+          <img id="currentImage" src="" />
+          <p class="degree"></p>
+        </section>
+
+        <section id="hourly"></section>
+
+        <section id="rain">
+          <p>Va a llover en tu ciudad en las próximas horas.</p>
+        </section>
+
+        <section id="noRain">
+          <p>No va a llover en tu ciudad en las próximas horas.</p>
+        </section>
+
+        <section id="error">
+          <p>Error en la recepción de datos.</p>
+        </section>
+      </div>
     </main>
     <footer>
       <p>© 2022 MeteoHack</p>

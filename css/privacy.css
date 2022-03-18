@@ -5,7 +5,38 @@
 
 body {
   font-family: sans-serif;
+  color: #474747;
   background-image: url("/css/clouds.jpg");
   background-size: cover;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+h1,
+section {
+  margin: 1rem;
+}
+
+main p,
+ol > li {
+  margin-bottom: 1rem;
+}
+
+footer {
+  color: white;
+  text-align: center;
+  padding: 0.5rem;
+  background-color: #474747;
+}
+
+a {
+  color: white;
+  text-decoration: none;
 }

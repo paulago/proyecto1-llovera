@@ -1,4 +1,5 @@
 "use strict";
+
 import { getWeatherIcon } from "/js/helper.js";
 
 const locationButton = document.querySelector("button");
@@ -13,6 +14,7 @@ function clean() {
   noRain.classList.add("hidden");
   error.classList.add("hidden");
   actually.classList.add("hidden");
+  hourlyContainer.classList.add("hidden");
 }
 clean();
 
@@ -20,10 +22,12 @@ function showActuallyData(current) {
   const date = new Date();
   const now = date.getDate() + " - " + (date.getMonth() + 1);
   const hourData = date.getHours();
+
   const h2 = document.querySelector("#actually h2");
   h2.textContent = now;
+
   const hour = document.querySelector("#actually .actuallyHour");
-  hour.textContent = `${hourData} H`;
+  hour.textContent = `${hourData} h.`;
 
   const degree = document.querySelector("#actually .degree");
   degree.textContent = `${Math.round(parseInt(current.temp) - 273.15)} ºC`;
@@ -44,9 +48,9 @@ function showHourlyData(hourly) {
 
     const hourData = hour + index + 1;
     if (hourData <= 24) {
-      nextHour.textContent = `${hourData} H`;
+      nextHour.textContent = `${hourData} h.`;
     } else if (hourData > 24) {
-      nextHour.textContent = `${hourData - 24} H`;
+      nextHour.textContent = `${hourData - 24} h.`;
     }
 
     img.src = getWeatherIcon(hourly[index].weather[0].main);
@@ -65,6 +69,12 @@ function removeHidden(square) {
 }
 
 locationButton.addEventListener("click", async () => {
+  function removeHiddenWeather() {
+    actually.classList.remove("hidden");
+    hourlyContainer.classList.remove("hidden");
+  }
+  removeHiddenWeather();
+
   try {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
@@ -80,9 +90,11 @@ locationButton.addEventListener("click", async () => {
             current: data.current,
             hourly: data.hourly.slice(0, 7),
           };
+
           showActuallyData(finalData.current);
           console.log(finalData);
           showHourlyData(finalData.hourly);
+
           if (
             finalData.current.weather.main === "Rain" ||
             finalData.hourly.some((item) => item.weather[0].main === "Rain")
