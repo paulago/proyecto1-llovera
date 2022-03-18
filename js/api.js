@@ -3,18 +3,19 @@
 import { getWeatherIcon } from "/js/helper.js";
 
 const locationButton = document.querySelector("button");
+const resetButton = document.querySelector("#reset");
 const rain = document.querySelector("#rain");
 const noRain = document.querySelector("#noRain");
 const error = document.querySelector("#error");
 const actually = document.querySelector("#actually");
-const hourlyContainer = document.querySelector("#hourly");
+const nextHours = document.querySelector("#nextHours");
 
 function clean() {
   rain.classList.add("hidden");
   noRain.classList.add("hidden");
   error.classList.add("hidden");
   actually.classList.add("hidden");
-  hourlyContainer.classList.add("hidden");
+  nextHours.classList.add("hidden");
 }
 clean();
 
@@ -41,26 +42,26 @@ function showHourlyData(hourly) {
   const hour = date.getHours();
 
   hourly.forEach((item, index) => {
-    const div = document.createElement("div");
-    const nextHour = document.createElement("h3");
+    const section = document.createElement("section");
+    const next = document.createElement("h3");
     const degree = document.createElement("p");
     const img = document.createElement("img");
 
     const hourData = hour + index + 1;
     if (hourData <= 24) {
-      nextHour.textContent = `${hourData} h.`;
+      next.textContent = `${hourData} h.`;
     } else if (hourData > 24) {
-      nextHour.textContent = `${hourData - 24} h.`;
+      next.textContent = `${hourData - 24} h.`;
     }
 
     img.src = getWeatherIcon(hourly[index].weather[0].main);
 
     degree.textContent = `${Math.round(parseInt(item.temp) - 273.15)} ºC`;
 
-    div.appendChild(nextHour);
-    div.appendChild(img);
-    div.appendChild(degree);
-    hourlyContainer.appendChild(div);
+    section.appendChild(next);
+    section.appendChild(img);
+    section.appendChild(degree);
+    nextHours.appendChild(section);
   });
 }
 
@@ -69,11 +70,8 @@ function removeHidden(square) {
 }
 
 locationButton.addEventListener("click", async () => {
-  function removeHiddenWeather() {
-    actually.classList.remove("hidden");
-    hourlyContainer.classList.remove("hidden");
-  }
-  removeHiddenWeather();
+  removeHidden(actually, nextHours);
+  locationButton.classList.add("hidden");
 
   try {
     if (navigator.geolocation) {
@@ -92,7 +90,7 @@ locationButton.addEventListener("click", async () => {
           };
 
           showActuallyData(finalData.current);
-          console.log(finalData);
+
           showHourlyData(finalData.hourly);
 
           if (
@@ -112,4 +110,11 @@ locationButton.addEventListener("click", async () => {
     console.log(error.message);
     removeHidden(error);
   }
+});
+
+resetButton.addEventListener("click", () => {
+  nextHours.value = "";
+  actually.value = "";
+  removeHidden(locationButton);
+  clean();
 });
