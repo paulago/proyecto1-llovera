@@ -111,3 +111,9 @@ a {
   max-width: 80rem;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
 }
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 3rem;
+  }
+}
