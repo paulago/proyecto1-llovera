@@ -18,12 +18,15 @@ body {
 }
 
 h1 {
-  margin-top: 1rem;
-  font-size: 4rem;
+  margin-top: 2rem;
+  font-size: 6rem;
+  font-weight: bold;
+  text-shadow: 10px 10px 15px rgba(0, 0, 0, 0.6);
 }
 
 header h2 {
-  margin: 1rem 1rem;
+  margin: 1.5rem 1.5rem;
+  text-shadow: 10px 10px 15px rgba(0, 0, 0, 0.6);
 }
 
 main {
@@ -42,7 +45,7 @@ main {
   padding: 1rem;
   max-width: 300px;
   margin: 1rem auto;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 #nextHours {
@@ -56,17 +59,23 @@ main {
   background-color: rgb(191, 226, 244);
   border-radius: 15px;
   padding: 1rem;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 button {
   background-color: #474747;
   color: white;
   padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
   font-size: 1rem;
   border: none;
   border-radius: 6px;
+  box-shadow: 3px 2px 10px rgba(0, 0, 0, 0.5);
   font-weight: bold;
+  transition-property: transform;
+}
+button:hover {
+  transform: scale(1.1, 1.1);
 }
 
 footer {
@@ -90,6 +99,7 @@ a {
   border-radius: 15px;
   padding: 1rem;
   max-width: 80rem;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
 }
 
 #error {
@@ -99,4 +109,5 @@ a {
   border-radius: 15px;
   padding: 1rem;
   max-width: 80rem;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
 }

@@ -26,7 +26,7 @@ clean();
 function showActuallyData(current) {
   const date = new Date();
   const month = getMonthDay(date.getMonth() + 1);
-  const now = date.getDate() + " - " + month;
+  const now = date.getDate() + "  " + month;
   const hourData = date.getHours();
   const h2 = document.querySelector("#actually h2");
   h2.textContent = now;
